@@ -60,5 +60,5 @@ export default defineSchema({
   emailsWithRecipients: defineTable({
     emailId: v.id("emails"),
     recipient: v.string(),
-  }).index("by_recipient", ["recipient"]),
+  }).index("by_recipient", ["recipient"]).index("by_emailId", ["emailId"]),
 });

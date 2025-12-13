@@ -1025,6 +1025,13 @@ async function cleanupEmail(ctx: MutationCtx, email: Doc<"emails">) {
   for (const event of events) {
     await ctx.db.delete(event._id);
   }
+  const recipientRecords = await ctx.db
+    .query("emailsWithRecipients")
+    .withIndex("by_emailId", (q) => q.eq("emailId", email._id))
+    .collect();
+  for (const record of recipientRecords) {
+    await ctx.db.delete(record._id);
+  }
 }
 
 // Periodic background job to clean up old emails that have been abandoned.
