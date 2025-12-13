@@ -24,7 +24,7 @@
         "clean": "del dist *.tsbuildinfo",
         "build": "tsc --project ./tsconfig.build.json",
         "build:codegen": "npx convex codegen --component-dir ./src/component && npm run build",
-        "build:clean": "rm -rf dist *.tsbuildinfo && npm run build:codegen",
+        "build:clean": "del dist *.tsbuildinfo && npm run build:codegen",
         "typecheck": "tsc --noEmit && tsc -p example/convex",
         "lint": "bun x @biomejs/biome check",
         "lint:fix": "bun x @biomejs/biome check . --fix",
