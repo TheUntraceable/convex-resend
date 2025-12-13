@@ -6,15 +6,15 @@ import { convexTest } from "convex-test";
 const schema = defineSchema({});
 
 function setupTest() {
-  const t = convexTest(schema, modules);
-  t.registerComponent("resend", componentSchema, componentModules);
-  return t;
+	const t = convexTest(schema, modules);
+	t.registerComponent("resend", componentSchema, componentModules);
+	return t;
 }
 
 type ConvexTest = ReturnType<typeof setupTest>;
 
 describe("Resend", () => {
-  test("handleResendEventWebhook", async () => {
-    const _t: ConvexTest = setupTest();
-  });
+	test("handleResendEventWebhook", async () => {
+		const _t: ConvexTest = setupTest();
+	});
 });
