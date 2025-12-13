@@ -1076,15 +1076,15 @@ export const getSentEmailsByFrom = query({
   },
 })
 
-  /**
- * Fetch all emails that were sent to one or more recipient addresses.
- *
- * Accepts either a single recipient string or an array of recipient
- * addresses and returns the matching `emails` documents.
- *
- * Args:
- * - `to`: A recipient email address or an array of addresses to search for.
- */
+/**
+* Fetch all emails that were sent to one or more recipient addresses.
+*
+* Accepts either a single recipient string or an array of recipient
+* addresses and returns the matching `emails` documents.
+*
+* Args:
+* - `to`: A recipient email address or an array of addresses to search for.
+*/
 export const getSentEmailsTo = query({
   args: {
     to: v.union(v.string(), v.array(v.string())),
@@ -1092,6 +1092,7 @@ export const getSentEmailsTo = query({
   handler: async (ctx, args) => {
     const toAddresses = Array.isArray(args.to) ? args.to : [args.to];
     const emails: Doc<"emails">[] = [];
+    const seenEmailIds = new Set<string>();
     for (const toAddress of toAddresses) {
       const results = await ctx.db.query("emailsWithRecipients").withIndex(
         "by_recipient",
@@ -1101,7 +1102,12 @@ export const getSentEmailsTo = query({
         const email = await ctx.db.get(r.emailId);
         return email;
       }));
-      emails.push(...foundEmails.filter((e): e is Doc<"emails"> => e !== null));
+      for (const email of foundEmails) {
+        if (email && !seenEmailIds.has(email._id)) {
+          emails.push(email);
+          seenEmailIds.add(email._id);
+        }
+      }
     }
     return emails;
   }
