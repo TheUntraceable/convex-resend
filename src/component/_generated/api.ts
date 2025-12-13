@@ -8,21 +8,20 @@
  * @module
  */
 
+import type {
+    ApiFromModules,
+    FilterApi,
+    FunctionReference,
+} from "convex/server";
+import { anyApi, componentsGeneric } from "convex/server";
 import type * as lib from "../lib.js";
 import type * as shared from "../shared.js";
 import type * as utils from "../utils.js";
 
-import type {
-	ApiFromModules,
-	FilterApi,
-	FunctionReference,
-} from "convex/server";
-import { anyApi, componentsGeneric } from "convex/server";
-
 const fullApi: ApiFromModules<{
-	lib: typeof lib;
-	shared: typeof shared;
-	utils: typeof utils;
+    lib: typeof lib;
+    shared: typeof shared;
+    utils: typeof utils;
 }> = anyApi as any;
 
 /**
@@ -34,8 +33,8 @@ const fullApi: ApiFromModules<{
  * ```
  */
 export const api: FilterApi<
-	typeof fullApi,
-	FunctionReference<any, "public">
+    typeof fullApi,
+    FunctionReference<any, "public">
 > = anyApi as any;
 
 /**
@@ -47,12 +46,12 @@ export const api: FilterApi<
  * ```
  */
 export const internal: FilterApi<
-	typeof fullApi,
-	FunctionReference<any, "internal">
+    typeof fullApi,
+    FunctionReference<any, "internal">
 > = anyApi as any;
 
 export const components = componentsGeneric() as unknown as {
-	rateLimiter: import("@convex-dev/rate-limiter/_generated/component.js").ComponentApi<"rateLimiter">;
-	emailWorkpool: import("@convex-dev/workpool/_generated/component.js").ComponentApi<"emailWorkpool">;
-	callbackWorkpool: import("@convex-dev/workpool/_generated/component.js").ComponentApi<"callbackWorkpool">;
+    rateLimiter: import("@convex-dev/rate-limiter/_generated/component.js").ComponentApi<"rateLimiter">;
+    emailWorkpool: import("@convex-dev/workpool/_generated/component.js").ComponentApi<"emailWorkpool">;
+    callbackWorkpool: import("@convex-dev/workpool/_generated/component.js").ComponentApi<"callbackWorkpool">;
 };

@@ -1,8 +1,8 @@
+import type { Infer, Validator } from "convex/values";
 import { parse } from "convex-helpers/validators";
-import type { Validator, Infer } from "convex/values";
 
 export const assertExhaustive = (value: never): never => {
-	throw new Error(`Unhandled event type: ${value as string}`);
+    throw new Error(`Unhandled event type: ${value as string}`);
 };
 
 export const iife = <T>(fn: () => T): T => fn();
@@ -11,20 +11,20 @@ export const iife = <T>(fn: () => T): T => fn();
  * Generic function to attempt parsing with proper TypeScript type narrowing
  */
 export function attemptToParse<T extends Validator<any, any, any>>(
-	validator: T,
-	value: unknown,
+    validator: T,
+    value: unknown,
 ): { kind: "success"; data: Infer<T> } | { kind: "error"; error: unknown } {
-	try {
-		return {
-			kind: "success",
-			data: parse(validator, value),
-		};
-	} catch (error) {
-		return {
-			kind: "error",
-			error,
-		};
-	}
+    try {
+        return {
+            kind: "success",
+            data: parse(validator, value),
+        };
+    } catch (error) {
+        return {
+            kind: "error",
+            error,
+        };
+    }
 }
 
 /**
@@ -34,12 +34,12 @@ export function attemptToParse<T extends Validator<any, any, any>>(
  * and a full RFC-5322 compliant regex would be way too long.
  */
 const RESEND_TEST_EMAIL_REGEX =
-	/^(delivered|bounced|complained)(\+[a-zA-Z0-9_-]*)?@resend\.dev$/;
+    /^(delivered|bounced|complained)(\+[a-zA-Z0-9_-]*)?@resend\.dev$/;
 
 /**
  * Check if the given e-mail address is a valid test e-mail for Resend.
  * @param email
  */
 export function isValidResendTestEmail(email: string): boolean {
-	return RESEND_TEST_EMAIL_REGEX.test(email);
+    return RESEND_TEST_EMAIL_REGEX.test(email);
 }

@@ -1,6 +1,6 @@
-import { defineComponent } from "convex/server";
 import rateLimiter from "@convex-dev/rate-limiter/convex.config";
 import workpool from "@convex-dev/workpool/convex.config";
+import { defineComponent } from "convex/server";
 
 const component = defineComponent("resend");
 component.use(rateLimiter);
