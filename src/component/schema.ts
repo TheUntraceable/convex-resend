@@ -56,7 +56,7 @@ export default defineSchema({
     .index("by_resendId", ["resendId"])
     .index("by_finalizedAt", ["finalizedAt"])
     .index("by_to", ["to", "status"])
-    .index("by_from", ["from", "status"]),
+    .index("by_from", ["from"]),
   emailsWithRecipients: defineTable({
     emailId: v.id("emails"),
     recipient: v.string(),

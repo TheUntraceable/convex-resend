@@ -1060,7 +1060,7 @@ export const cleanupAbandonedEmails = mutation({
  * Fetch all emails sent from a given sender address.
  *
  * Returns an array of `emails` documents whose `from` field matches the
- * provided address and whose status is `sent`.
+ * provided address.
  *
  * Args:
  * - `from`: The sender email address to filter by.
@@ -1070,7 +1070,7 @@ export const getSentEmailsByFrom = query({
   handler: async (ctx, args) => {
     const emails = await ctx.db.query("emails").withIndex(
       "by_from",
-      q => q.eq("from", args.from).eq("status", "sent")
+      q => q.eq("from", args.from)
     ).collect()
     return emails;
   },
