@@ -11,7 +11,7 @@ import { componentsGeneric } from "convex/server";
 import componentSchema from "../component/schema.js";
 
 export const components = componentsGeneric() as unknown as {
-  resend: ResendComponent;
+	resend: ResendComponent;
 };
 
 test("setup", () => {});
