@@ -27,7 +27,7 @@
         "build:clean": "rm -rf dist *.tsbuildinfo && npm run build:codegen",
         "typecheck": "tsc --noEmit && tsc -p example/convex",
         "lint": "bun x @biomejs/biome check",
-		"lint:fix": "bun x @biomejs/biome check . --fix",
+        "lint:fix": "bun x @biomejs/biome check . --fix",
         "all": "run-p -r 'dev:*' 'test:watch'",
         "test": "vitest run --typecheck",
         "test:watch": "vitest --typecheck --clearScreen false",
