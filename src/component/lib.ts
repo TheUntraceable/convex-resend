@@ -1072,7 +1072,7 @@ export const cleanupAbandonedEmails = mutation({
  * Args:
  * - `from`: The sender email address to filter by.
  */
-export const getSentEmailsByFrom = query({
+export const getEmailsByFrom = query({
   args: { from: v.string() },
   handler: async (ctx, args) => {
     const emails = await ctx.db.query("emails").withIndex(
@@ -1105,10 +1105,11 @@ export const getSentEmailsTo = query({
         "by_recipient",
         q => q.eq("recipient", toAddress)
       ).collect();
-      const foundEmails = await Promise.all(results.map(async (r) => {
-        const email = await ctx.db.get(r.emailId);
-        return email;
-      }));
+      const foundEmails = await Promise.all(
+        results
+          .filter(result => !seenEmailIds.has(result.emailId))
+          .map(result => ctx.db.get(result.emailId))
+      );
       for (const email of foundEmails) {
         if (email && !seenEmailIds.has(email._id)) {
           emails.push(email);
