@@ -1,4 +1,4 @@
-import resend from "@convex-dev/resend/convex.config";
+import resend from "@the-untraceable/convex-resend/convex.config";
 import { defineApp } from "convex/server";
 
 const app = defineApp();
